@@ -1,28 +1,37 @@
 using System.Text.Json;
 using HotelManger.Utilities;
+
 /// <summary>
 /// A helper class to load data files
 /// </summary>
 public static class DataLoader
 {
-  /// <summary>
-  /// Load a JSON file and deserialise it into an object
-  /// </summary>
-  /// <typeparam name="T"></typeparam>
-  /// <param name="filePath"></param>
-  /// <returns></returns>
-  /// <exception cref="FileNotFoundException"></exception>
-  /// <exception cref="JsonException"></exception>
-  public static T LoadJsonFile<T>(string filePath)
-  {
-    var options = new JsonSerializerOptions();
-    options.Converters.Add(new DateConverter());
-
-    if (!File.Exists(filePath))
+    /// <summary>
+    /// Loads a JSON file from the specified path and deserializes it into an object of the specified type.
+    /// </summary>
+    /// <typeparam name="T">The type of the object to deserialize into.</typeparam>
+    /// <param name="filePath">The path to the JSON file.</param>
+    /// <returns>The deserialized object of type T.</returns>
+    /// <exception cref="FileNotFoundException">Thrown if the specified file is not found.</exception>
+    /// <exception cref="JsonException">Thrown if the file contents cannot be deserialized into the specified type.</exception>
+    public static T LoadJsonFile<T>(string filePath)
     {
-      throw new FileNotFoundException($"File not found: {filePath}");
+        if (!File.Exists(filePath))
+        {
+            throw new FileNotFoundException($"File not found: {filePath}");
+        }
+
+        // Add a custom date converter to handle date format 'yyyyMMdd'
+        var options = new JsonSerializerOptions();
+        options.Converters.Add(new DateConverter());
+
+        // Read the JSON file and deserialize it
+        var jsonData = File.ReadAllText(filePath);
+        var deserializedObject = JsonSerializer.Deserialize<T>(jsonData, options);
+        if (deserializedObject == null)
+        {
+            throw new JsonException($"Failed to deserialize JSON from {filePath}");
+        }
+        return deserializedObject;
     }
-    var jsonData = File.ReadAllText(filePath);
-    return JsonSerializer.Deserialize<T>(jsonData, options) ?? throw new JsonException($"Failed to deserilise JSON from {filePath}");
-  }
 }
