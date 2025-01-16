@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using HotelManger.Models;
+using HotelManger.Services;
 
 class Program
 {
@@ -9,8 +10,14 @@ class Program
         {
             var hotels = DataLoader.LoadJsonFile<List<Hotel>>("data/hotels.json");
             var bookings = DataLoader.LoadJsonFile<List<Booking>>("data/bookings.json");
-            Console.WriteLine($"Hotel: {hotels.Count}");
-            Console.WriteLine($"Bookings: {bookings.Count}");
+
+            var availabilityService = new AvailabilityService(hotels, bookings);
+            var roomCheckResult = availabilityService.CheckAvailability("H1", new DateTime(2024, 09, 03), DateTime.Now, "SGL");
+            Console.WriteLine($"Availability: {roomCheckResult}");
+
+            var roomSearchResult = availabilityService.SearchAvailabilty("H1", 7, "SGL");
+            Console.WriteLine($"Available rooms: {JsonSerializer.Serialize(roomSearchResult, new JsonSerializerOptions { WriteIndented = true })}");
+
         }
         catch (FileNotFoundException ex)
         {
