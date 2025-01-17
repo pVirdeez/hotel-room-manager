@@ -12,7 +12,7 @@ class Program
             var bookings = DataLoader.LoadJsonFile<List<Booking>>("data/bookings.json");
 
             var availabilityService = new AvailabilityService(hotels, bookings);
-            var roomCheckResult = availabilityService.CheckAvailability("H1", new DateTime(2024, 09, 03), DateTime.Now, "SGL");
+            var roomCheckResult = availabilityService.CheckAvailability("H1", new DateTime(2024, 09, 03), DateTime.UtcNow.Date, "SGL");
             Console.WriteLine($"Availability: {roomCheckResult}");
 
             var roomSearchResult = availabilityService.SearchAvailabilty("H1", 7, "SGL");

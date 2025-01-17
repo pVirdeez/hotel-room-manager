@@ -27,7 +27,7 @@ namespace HotelManger.Utilities
 
             if (DateTime.TryParseExact(dateString, "yyyyMMdd", null, DateTimeStyles.None, out DateTime result))
             {
-                return result;
+                return result.Date;
             }
             else
             {

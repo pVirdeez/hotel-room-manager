@@ -27,6 +27,17 @@ namespace HotelManger.Services
         /// <exception cref="ArgumentException">Thrown when input parameters are invalid, such as an improper date range.</exception>
         public int CheckAvailability(string hotelId, DateTime arrivalDate, DateTime departureDate, string roomTypeCode)
         {
+            //check if arrival date is in the past
+            if (arrivalDate.Date < DateTime.UtcNow.Date)
+            {
+                throw new ArgumentException("Arrival date cannot be in the past");
+            }
+            //check if departure date is before arrival date
+            if (departureDate < arrivalDate)
+            {
+                throw new ArgumentException("Departure date cannot be before arrival date");
+            }
+
             // Find the hotel by id
             var hotel = _hotels.FirstOrDefault(h => h.Id == hotelId);
             if (hotel == null)
@@ -72,7 +83,11 @@ namespace HotelManger.Services
         /// <returns></returns>
         public List<Availability> SearchAvailabilty(string hotelId, int daysAhead, string roomTypeCode)
         {
-            var now = DateTime.Now;
+            if (daysAhead <= 0)
+            {
+                throw new ArgumentException($"Days ahead must be greater than 0");
+            }
+            var now = DateTime.UtcNow.Date;
             var endDate = now.AddDays(daysAhead);
 
             // Get initial state from CheckAvailability method
@@ -109,7 +124,7 @@ namespace HotelManger.Services
             foreach (var change in dateChanges.Where(d => d.Date <= endDate))
             {
                 // If the date range has passed, record it as available
-                if (currentDate < change.Date)
+                if (availableRooms > 0 && currentDate < change.Date)
                 {
                     availablePeriods.Add(new Availability
                     {
