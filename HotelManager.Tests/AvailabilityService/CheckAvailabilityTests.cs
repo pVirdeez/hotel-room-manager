@@ -44,6 +44,21 @@ public partial class CheckAvailabilityTests
     }
 
     [Fact]
+    public void CheckAvailability_Overbooked_ReturnsNegativeCount()
+    {
+        // Arrange
+        var baseDate = TestDataFactory.GetBaseDate();
+        _testBookings.AddRange(TestDataFactory.CreateSameDayBookings("H1", "SGL", 3));
+
+        // Act
+        var availability = _availabilityService.CheckAvailability(
+            "H1", baseDate, baseDate.AddDays(1), "SGL");
+
+        // Assert
+        Assert.Equal(-1, availability);
+    }
+
+    [Fact]
     public void CheckAvailability_FullyBooked_ReturnsZero()
     {
         // Arrange
