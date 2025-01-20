@@ -8,11 +8,13 @@ class Program
     {
         try
         {
+            // Parse arguments and load data
             var (hotelsFile, bookingsFile) = ParseArguments(args);
             var (hotels, bookings) = await LoadDataAsync(hotelsFile, bookingsFile);
 
             if (hotels.Count > 0 && bookings.Count > 0)
             {
+                // Process user commands
                 Console.WriteLine("Hotel Manager Console App");
                 ProcessCommands(hotels, bookings);
             }
@@ -33,9 +35,14 @@ class Program
             return;
         }
     }
+    /// <summary>
+    /// Parse command line arguments to extract file paths.
+    /// </summary>
+    /// <param name="args">array of command line arguments</param>
+    /// <returns>hotels file path and bookings file path</returns>
+    /// <exception cref="ArgumentException"></exception>
     private static (string hotelsPath, string bookingsPath) ParseArguments(string[] args)
     {
-        // Extract file paths from command line arguments
         var hotelsFile = args.SkipWhile(a => a != "--hotels").Skip(1).FirstOrDefault();
         var bookingsFile = args.SkipWhile(a => a != "--bookings").Skip(1).FirstOrDefault();
 
@@ -52,12 +59,17 @@ class Program
         return (hotelsFile, bookingsFile);
     }
 
+    /// <summary>
+    /// Load hotels and bookings data from JSON files asynchronously.
+    /// </summary>
+    /// <param name="hotelsPath"></param>
+    /// <param name="bookingsPath"></param>
+    /// <returns></returns>
     private static async Task<(List<Hotel> hotels, List<Booking> bookings)> LoadDataAsync(
         string hotelsPath, string bookingsPath)
     {
         List<Hotel> hotels = new List<Hotel>();
         List<Booking> bookings = new List<Booking>();
-        // Load hotels and bookings data from JSON files
         try
         {
             hotels = await DataLoader.LoadJsonFileAsync<List<Hotel>>(hotelsPath);
@@ -76,6 +88,11 @@ class Program
         }
     }
 
+    /// <summary>
+    /// Process user commands
+    /// </summary>
+    /// <param name="hotels">hotels data</param>
+    /// <param name="bookings">bookings data</param>
     private static void ProcessCommands(List<Hotel> hotels, List<Booking> bookings)
     {
         while (true)
