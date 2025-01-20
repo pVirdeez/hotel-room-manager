@@ -14,7 +14,7 @@ public static class DataLoader
     /// <returns>The deserialized object of type T.</returns>
     /// <exception cref="FileNotFoundException">Thrown if the specified file is not found.</exception>
     /// <exception cref="JsonException">Thrown if the file contents cannot be deserialized into the specified type.</exception>
-    public static T LoadJsonFile<T>(string filePath)
+    public static async Task<T> LoadJsonFileAsync<T>(string filePath)
     {
         if (!File.Exists(filePath))
         {
@@ -26,7 +26,7 @@ public static class DataLoader
         options.Converters.Add(new DateConverter());
 
         // Read the JSON file and deserialize it
-        var jsonData = File.ReadAllText(filePath);
+        var jsonData = await File.ReadAllTextAsync(filePath);
         Console.WriteLine($"Loaded JSON: {jsonData}");
         var deserializedObject = JsonSerializer.Deserialize<T>(jsonData, options);
         if (deserializedObject == null)

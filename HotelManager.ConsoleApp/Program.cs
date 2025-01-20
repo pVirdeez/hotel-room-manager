@@ -1,11 +1,9 @@
-﻿using System.Globalization;
-using System.Text.Json;
-using HotelManager.Commands;
+﻿using HotelManager.Commands;
 using HotelManager.Models;
 
 class Program
 {
-    static void Main(string[] args)
+    static async Task Main(string[] args)
     {
         // extract command line arguments
         var hotelsFile = args.SkipWhile(a => a != "--hotels").Skip(1).FirstOrDefault();
@@ -19,9 +17,9 @@ class Program
         }
 
         // load the hotels and bookings files
-        var hotels = DataLoader.LoadJsonFile<List<Hotel>>(hotelsFile);
-        var bookings = DataLoader.LoadJsonFile<List<Booking>>(bookingsFile);
-        Console.WriteLine("Hotel Availability Checker");
+        var hotels = await DataLoader.LoadJsonFileAsync<List<Hotel>>(hotelsFile);
+        var bookings = await DataLoader.LoadJsonFileAsync<List<Booking>>(bookingsFile);
+        Console.WriteLine("Hotel Manager Console App");
 
         while (true)
         {
