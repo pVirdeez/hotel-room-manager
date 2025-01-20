@@ -19,6 +19,9 @@ class Program
                 var commandProcessor = new CommandProcessor(hotels, bookings);
                 commandProcessor.ProcessCommands();
             }
+            else
+                Console.WriteLine("Error: No data loaded. Please check the input files.");
+
         }
         catch (ArgumentException ex)
         {
