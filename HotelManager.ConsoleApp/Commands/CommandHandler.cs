@@ -34,7 +34,7 @@ namespace HotelManager.Commands
                     break;
 
                 default:
-                    Console.WriteLine("Unknown command. Please enter either 'Search' or 'Availability'.");
+                    Console.WriteLine("Error: Unknown command. Please enter either 'Search' or 'Availability'.");
                     break;
             }
         }

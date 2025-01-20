@@ -30,26 +30,26 @@ namespace HotelManager.Services
             // Check if arrival date is in the past
             if (arrivalDate.Date < DateTime.UtcNow.Date)
             {
-                throw new ArgumentException("Arrival date cannot be in the past");
+                throw new ArgumentException("Arrival date cannot be in the past.");
             }
             // Check if departure date is before arrival date
             if (departureDate < arrivalDate)
             {
-                throw new ArgumentException("Departure date cannot be before arrival date");
+                throw new ArgumentException("Departure date cannot be before arrival date.");
             }
 
             // Find the hotel by id
             var hotel = _hotels.FirstOrDefault(h => h.Id == hotelId);
             if (hotel == null)
             {
-                throw new ArgumentException($"Hotel with id {hotelId} not found");
+                throw new ArgumentException($"Hotel with id {hotelId} not found.");
             }
 
             // Find the room type by code
             var roomType = hotel.RoomTypes?.FirstOrDefault(rt => rt.Code == roomTypeCode);
             if (roomType == null)
             {
-                throw new ArgumentException($"Room type with code {roomTypeCode} not found in hotel {hotelId}");
+                throw new ArgumentException($"Room type with code {roomTypeCode} not found in hotel {hotelId}.");
             }
 
             // Filter bookings for the specified hotel and room type
@@ -59,7 +59,7 @@ namespace HotelManager.Services
             var availableRoomsCount = hotel.Rooms?.Count(r => r.RoomType == roomTypeCode);
             if (availableRoomsCount == null)
             {
-                throw new ArgumentException($"No rooms found in hotel {hotelId} with room type {roomTypeCode}");
+                throw new ArgumentException($"No rooms found in hotel {hotelId} with room type {roomTypeCode}.");
             }
 
             // Check for overlapping bookings and reduce the available room count accordingly
@@ -86,7 +86,7 @@ namespace HotelManager.Services
         {
             if (daysAhead <= 0)
             {
-                throw new ArgumentException($"Days ahead must be greater than 0");
+                throw new ArgumentException($"Days ahead must be greater than 0.");
             }
             var now = DateTime.UtcNow.Date;
             var endDate = now.AddDays(daysAhead);

@@ -18,7 +18,7 @@ public static class DataLoader
     {
         if (!File.Exists(filePath))
         {
-            throw new FileNotFoundException($"File not found: {filePath}");
+            throw new FileNotFoundException($"File not found: {filePath}.");
         }
 
         // Add a custom date converter to handle date format 'yyyyMMdd'
@@ -31,7 +31,7 @@ public static class DataLoader
         var deserializedObject = JsonSerializer.Deserialize<T>(jsonData, options);
         if (deserializedObject == null)
         {
-            throw new JsonException($"Failed to deserialize JSON from {filePath}");
+            throw new JsonException($"Failed to deserialize JSON from {filePath}.");
         }
         return deserializedObject;
     }

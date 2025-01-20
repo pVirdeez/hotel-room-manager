@@ -37,7 +37,7 @@ namespace HotelManager.Commands
                 if (dates.Length != 2 || !DateTime.TryParseExact(dates[0], "yyyyMMdd", null, System.Globalization.DateTimeStyles.None, out startDate) ||
                     !DateTime.TryParseExact(dates[1], "yyyyMMdd", null, System.Globalization.DateTimeStyles.None, out endDate))
                 {
-                    Console.WriteLine("Invalid date range format. Please use yyyyMMdd-yyyyMMdd.");
+                    Console.WriteLine("Error: Invalid date range format. Please use yyyyMMdd-yyyyMMdd.");
                     return;
                 }
             }
@@ -45,7 +45,7 @@ namespace HotelManager.Commands
             {
                 if (!DateTime.TryParseExact(datePart, "yyyyMMdd", null, System.Globalization.DateTimeStyles.None, out startDate))
                 {
-                    Console.WriteLine("Invalid date format. Please use yyyyMMdd.");
+                    Console.WriteLine("Error: Invalid date format. Please use yyyyMMdd.");
                     return;
                 }
                 endDate = startDate;
@@ -53,10 +53,19 @@ namespace HotelManager.Commands
 
             // Call check availability function and display the result
             var availabilityService = new AvailabilityService(hotels, bookings);
-            var roomCheckResult = availabilityService.CheckAvailability(hotelId, startDate, endDate, roomType);
+            int roomCheckResult;
+            try
+            {
+                roomCheckResult = availabilityService.CheckAvailability(hotelId, startDate, endDate, roomType);
+            }
+            catch (ArgumentException e)
+            {
+                Console.WriteLine($"Error: {e.Message}");
+                return;
+            }
 
             var dateMessage = startDate == endDate ? $"on {startDate:yyyy-MM-dd}" : $"from {startDate:yyyy-MM-dd} to {endDate:yyyy-MM-dd}";
-            Console.WriteLine($"{roomCheckResult} {roomType} rooms available {dateMessage}");
+            Console.WriteLine($"{roomCheckResult} {roomType} rooms available {dateMessage}.");
         }
     }
 }

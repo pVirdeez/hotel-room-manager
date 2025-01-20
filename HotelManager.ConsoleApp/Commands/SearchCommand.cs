@@ -22,7 +22,7 @@ namespace HotelManager.Commands
 
             if (parts.Length != 3)
             {
-                Console.WriteLine("Invalid format for Search command. Please use Search(H1, 35, SGL).");
+                Console.WriteLine("Error: Invalid format for Search command. Please use Search(H1, 35, SGL).");
                 return;
             }
             string hotelId = parts[0].Trim();
@@ -31,7 +31,16 @@ namespace HotelManager.Commands
 
             // call search availability function and display the result
             var availabilityService = new AvailabilityService(hotels, bookings);
-            var roomSearchResult = availabilityService.SearchAvailabilty(hotelId, daysAhead, roomType);
+            List<Availability> roomSearchResult;
+            try
+            {
+                roomSearchResult = availabilityService.SearchAvailabilty(hotelId, daysAhead, roomType);
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                return;
+            }
 
             var formattedResults = roomSearchResult
             .Select(r => $"({r.StartDate:yyyyMMdd}-{r.EndDate:yyyyMMdd}, {r.AvailableRooms})")
