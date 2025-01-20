@@ -1,4 +1,4 @@
-namespace HotelManager.Utilities
+namespace HotelManager.Helpers
 {
     /// <summary>
     /// A helper class to parse command line arguments
