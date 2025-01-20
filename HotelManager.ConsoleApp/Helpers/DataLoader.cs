@@ -27,7 +27,7 @@ public static class DataLoader
 
         // Read the JSON file and deserialize it
         var jsonData = await File.ReadAllTextAsync(filePath);
-        Console.WriteLine($"Loaded JSON: {jsonData}");
+
         var deserializedObject = JsonSerializer.Deserialize<T>(jsonData, options);
         if (deserializedObject == null)
         {

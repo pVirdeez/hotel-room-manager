@@ -3,11 +3,21 @@ using HotelManager.Services;
 
 namespace HotelManager.Commands
 {
+    /// <summary>
+    /// Availability command class to handle the availability command
+    /// </summary>
     public class AvailabilityCommand
     {
+        /// <summary>
+        /// Execute the availability command
+        /// </summary>
+        /// <param name="command">The command string to parse and execute</param>
+        /// <param name="hotels">The list of hotels</param>
+        /// <param name="bookings">The list of bookings</param>
+        /// output: result of the availability command to console
         public static void Execute(string command, List<Hotel> hotels, List<Booking> bookings)
         {
-            // extract the parameters from the input
+            // Extract the parameters from the input
             var parts = command.Substring("Availability".Length).Trim('(', ')').Split(',');
 
             if (parts.Length != 3)
@@ -21,7 +31,7 @@ namespace HotelManager.Commands
             DateTime startDate, endDate;
 
             // Parse the date(s)
-            if (datePart.Contains('-')) // date range
+            if (datePart.Contains('-'))
             {
                 var dates = datePart.Split('-');
                 if (dates.Length != 2 || !DateTime.TryParseExact(dates[0], "yyyyMMdd", null, System.Globalization.DateTimeStyles.None, out startDate) ||
@@ -31,7 +41,7 @@ namespace HotelManager.Commands
                     return;
                 }
             }
-            else // single date
+            else
             {
                 if (!DateTime.TryParseExact(datePart, "yyyyMMdd", null, System.Globalization.DateTimeStyles.None, out startDate))
                 {
@@ -41,7 +51,7 @@ namespace HotelManager.Commands
                 endDate = startDate;
             }
 
-            // call check availability function
+            // Call check availability function and display the result
             var availabilityService = new AvailabilityService(hotels, bookings);
             var roomCheckResult = availabilityService.CheckAvailability(hotelId, startDate, endDate, roomType);
 

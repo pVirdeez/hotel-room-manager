@@ -27,12 +27,12 @@ namespace HotelManager.Services
         /// <exception cref="ArgumentException">Thrown when input parameters are invalid, such as an improper date range.</exception>
         public int CheckAvailability(string hotelId, DateTime arrivalDate, DateTime departureDate, string roomTypeCode)
         {
-            //check if arrival date is in the past
+            // Check if arrival date is in the past
             if (arrivalDate.Date < DateTime.UtcNow.Date)
             {
                 throw new ArgumentException("Arrival date cannot be in the past");
             }
-            //check if departure date is before arrival date
+            // Check if departure date is before arrival date
             if (departureDate < arrivalDate)
             {
                 throw new ArgumentException("Departure date cannot be before arrival date");
@@ -80,7 +80,8 @@ namespace HotelManager.Services
         /// <param name="hotelId">The id of the hotel to search.</param>
         /// <param name="daysAhead">The number of days ahead to search for available rooms.</param>
         /// <param name="roomTypeCode">Room type code to check</param>
-        /// <returns></returns>
+        /// <returns>A list of availability periods with the number of available rooms for each period.</returns>
+        /// <exception cref="ArgumentException">Thrown when the number of days ahead is less than or equal to 0.</exception>
         public List<Availability> SearchAvailabilty(string hotelId, int daysAhead, string roomTypeCode)
         {
             if (daysAhead <= 0)
