@@ -47,7 +47,6 @@ namespace HotelManager.Commands
 
             var dateMessage = startDate == endDate ? $"on {startDate:yyyy-MM-dd}" : $"from {startDate:yyyy-MM-dd} to {endDate:yyyy-MM-dd}";
             Console.WriteLine($"{roomCheckResult} {roomType} rooms available {dateMessage}");
-            Console.WriteLine();
         }
     }
 }

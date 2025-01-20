@@ -26,6 +26,7 @@ class Program
         while (true)
         {
             // display console menu and prompt for input
+            Console.WriteLine();
             Console.WriteLine("Commands:");
             Console.WriteLine(" Search(HotelId, Days, RoomType) - e.g., Search(H1, 35, SGL)");
             Console.WriteLine(" Availability(HotelId, Date, RoomType) - e.g., Availability(H1, 20240901, SGL)");

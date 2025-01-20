@@ -1,4 +1,4 @@
-using HotelManger.Models;
+using HotelManager.Models;
 
 public static class TestDataFactory
 {

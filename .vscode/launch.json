@@ -1,0 +1,16 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": ".NET Core Launch (Console)",
+        "type": "coreclr",
+        "request": "launch",
+        "preLaunchTask": "build",
+        "program": "${workspaceFolder}/HotelManager.ConsoleApp/bin/Debug/net9.0/HotelManager.ConsoleApp.dll",
+        "args": ["--hotels", "/Users/gurpalvirdee/projects/hotel-room-manager/HotelManager.ConsoleApp/data/bookings.json", "--bookings", "/Users/gurpalvirdee/projects/hotel-room-manager/HotelManager.ConsoleApp/data/hotels.json"],
+        "cwd": "${workspaceFolder}",
+        "console": "integratedTerminal",
+        "stopAtEntry": false
+      }
+    ]
+}

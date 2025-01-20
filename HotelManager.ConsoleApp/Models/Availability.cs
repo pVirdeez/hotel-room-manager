@@ -1,4 +1,4 @@
-namespace HotelManger.Models
+namespace HotelManager.Models
 {
     public class Availability
     {

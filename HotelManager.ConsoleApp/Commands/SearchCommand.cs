@@ -14,6 +14,7 @@ namespace HotelManager.Commands
             if (parts.Length != 3)
             {
                 Console.WriteLine("Invalid format for Search command. Please use Search(H1, 35, SGL).");
+                Console.WriteLine();
                 return;
             }
             string hotelId = parts[0].Trim();
@@ -29,7 +30,6 @@ namespace HotelManager.Commands
             .ToList();
 
             Console.WriteLine(string.Join(", ", formattedResults));
-            Console.WriteLine();
         }
     }
 }

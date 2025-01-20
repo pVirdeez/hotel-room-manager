@@ -1,5 +1,5 @@
-using HotelManger.Models;
-using HotelManger.Services;
+using HotelManager.Models;
+using HotelManager.Services;
 
 public partial class SearchAvailabilityTests
 {

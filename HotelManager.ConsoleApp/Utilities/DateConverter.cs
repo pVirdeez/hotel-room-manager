@@ -2,7 +2,7 @@ using System.Globalization;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace HotelManger.Utilities
+namespace HotelManager.Utilities
 {
     /// <summary>
     /// A custom JSON converter for date strings in the format 'yyyyMMdd'.

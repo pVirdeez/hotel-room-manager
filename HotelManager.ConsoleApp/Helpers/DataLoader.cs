@@ -1,7 +1,7 @@
 using System.Text.Json;
-using HotelManger.Utilities;
+using HotelManager.Utilities;
 
-/// <summary>
+/// <summary>s
 /// A helper class to load data files
 /// </summary>
 public static class DataLoader
@@ -27,6 +27,7 @@ public static class DataLoader
 
         // Read the JSON file and deserialize it
         var jsonData = File.ReadAllText(filePath);
+        Console.WriteLine($"Loaded JSON: {jsonData}");
         var deserializedObject = JsonSerializer.Deserialize<T>(jsonData, options);
         if (deserializedObject == null)
         {

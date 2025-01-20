@@ -1,6 +1,6 @@
-using HotelManger.Models;
+using HotelManager.Models;
 
-namespace HotelManger.Services
+namespace HotelManager.Services
 {
     /// <summary>
     /// Service to check availability of rooms in a hotel
