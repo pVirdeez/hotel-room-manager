@@ -11,6 +11,14 @@ This application is designed to manage hotel room availability, including the ab
 
 ## Getting Started
 
+### Prerequisites
+
+- [.NET 7 SDK](https://dotnet.microsoft.com/download/dotnet/7.0)
+
+- A code editor like Visual Studio Code
+
+- Command-line terminal
+
 ### Cloning the Repository
 
 ```bash
@@ -141,6 +149,43 @@ To run the tests, execute the following command:
 ```bash
 cd HotelManager.Tests
 dotnet test
+```
+
+## Project Structure
+
+```bash
+hotel-room-manager/
+├── HotelManager.ConsoleApp/
+│   ├── Commands/
+│   │   ├── AvailabilityCommand.cs
+│   │   ├── CommandHandler.cs
+│   │   ├── CommandProcessor.cs
+│   │   └── SearchCommand.cs
+│   ├── Helpers/
+│   │   ├── ArgumentParser.cs
+│   │   └── DataLoader.cs
+│   ├── Models/
+│   │   ├── Availability.cs
+│   │   ├── Booking.cs
+│   │   ├── Hotel.cs
+│   │   └── Room.cs
+│   ├── Services/
+│   │   └── AvailabilityService.cs
+│   ├── Utilities/
+│   │   └── DateConverter.cs
+│   ├── Program.cs
+│   ├── HotelManager.ConsoleApp.csproj
+│   └── data/
+│       ├── bookings.json
+│       └── hotels.json
+├── HotelManager.Tests/
+│   ├── Services/
+│   │   ├── CheckAvailabilityTests.cs
+│   │   └── SearchAvailabilityTests.cs
+│   ├── Helpers/
+│   │   └── TestDataFactory.cs
+│   ├── HotelManager.Tests.csproj
+└── README.md
 ```
 
 ## License
